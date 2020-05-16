@@ -31,6 +31,7 @@ namespace Game.Scripts.Models
         [Header("Arrow")]
 
         public float ArrowSpeed = 15f;
+        public float ArrowCooldown = 0.5f;
 
     }
 }
