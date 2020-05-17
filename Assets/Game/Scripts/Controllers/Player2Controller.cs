@@ -46,7 +46,6 @@ namespace Game.Scripts.Controllers
 
             _lookDirection = MouseHelper.GetMouseWorldPosition() - transform.position;
             _lookAngle = Mathf.Atan2(_lookDirection.y, _lookDirection.x) * Mathf.Rad2Deg;
-            Debug.Log("Look Angle: " + _lookAngle);
             if (_lookAngle >= -90 && _lookAngle <= 80f)
             {
                 //Debug.Log("Right");
@@ -84,9 +83,9 @@ namespace Game.Scripts.Controllers
 
         private void FixedUpdate()
         {
-            if (_rb.velocity.magnitude > 2f)
+            if (_rb.velocity.magnitude > 4f)
             {
-                _rb.velocity = _rb.velocity.normalized * 2f;
+                _rb.velocity = _rb.velocity.normalized * 4f;
             }
         }
     }

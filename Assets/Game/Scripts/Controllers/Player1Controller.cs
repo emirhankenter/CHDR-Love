@@ -22,11 +22,29 @@ namespace Game.Scripts.Controllers
         private float _verticalInput;
         private bool _jump = false;
 
+        private Man _man;
 
+
+        #region Singleton
+        private static Player1Controller _instance;
+        public static Player1Controller Instance { get { return _instance; } }
+        private void Awake()
+        {
+            if (_instance != null && _instance != this)
+            {
+                Destroy(this.gameObject);
+            }
+            else
+            {
+                _instance = this;
+            }
+        }
+        #endregion
 
         private void Start()
         {
             _player1 = new PlayerData(GameConfig.Instance.Player1Speed);
+            _man = new Man(GameConfig.Instance.Player1MaxLove);
         }
 
         private void Update()
@@ -68,10 +86,18 @@ namespace Game.Scripts.Controllers
             //Animator.SetBool("IsJumping", false);
         }
 
+        public void GainLove(float damage)
+        {
+            _man.Love += damage;
+            Mathf.Clamp(_man.Love, 0f, GameConfig.Instance.Player1MaxLove);
+            Debug.Log(damage + " damage taken.");
+        }
+
         void FixedUpdate()
         {
             Controller.Move(_horizontalInput * Time.fixedDeltaTime, false, _jump);
             _jump = false;
         }
+
     }
 }

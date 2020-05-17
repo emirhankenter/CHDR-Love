@@ -25,13 +25,19 @@ namespace Game.Scripts.Models
 
         #endregion
         [Header("PlayerSettings")]
-        public float Player1Speed = 10f;
-        public float Player2Speed = 5f;
+        public float Player1Speed = 30f;
+        public float Player1JumpForce = 200;
+        public float Player1MaxLove = 100f;
+
+
+        public float Player2Speed = 100f;
+        public float Player2JumpForce = 100f;
+
 
         [Header("Arrow")]
 
         public float ArrowSpeed = 15f;
-        public float ArrowCooldown = 0.5f;
+        public float ArrowCooldown = 2f;
 
     }
 }
