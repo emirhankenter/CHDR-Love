@@ -57,7 +57,7 @@ InputManager:
     m_Name: VerticalPlayer2
     descriptiveName: 
     descriptiveNegativeName: 
-    negativeButton: down
+    negativeButton: 
     positiveButton: up
     altNegativeButton: 
     altPositiveButton: 
