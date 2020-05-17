@@ -12,7 +12,9 @@ namespace Game.Scripts.Controllers
     {
 
         [SerializeField] private PlayerEnum _player;
-        [SerializeField] private Rigidbody2D _rb;
+
+        public CharacterController2D Controller;
+        public Animator Animator;
 
         private Vector2 _lookDirection;
         private float _lookAngle;
@@ -22,6 +24,7 @@ namespace Game.Scripts.Controllers
 
         private float _horizontalInput;
         private float _verticalInput;
+        private bool _jump = false;
 
 
 
@@ -73,19 +76,78 @@ namespace Game.Scripts.Controllers
 
         private void MovePlayer()
         {
+            //if (_player == PlayerEnum.Player1)
+            //{
+            //    _horizontalInput = _player1.Speed * Input.GetAxis("HorizontalPlayer1");
+            //    _verticalInput = _player1.Speed * Input.GetAxis("VerticalPlayer1");
+            //}
+            //else
+            //{
+            //    _horizontalInput = _player2.Speed * Input.GetAxis("HorizontalPlayer2");
+            //    _verticalInput = _player2.Speed * Input.GetAxis("VerticalPlayer2");
+
+
+            //}
+            //_rb.velocity = new Vector2(_horizontalInput, _verticalInput);
+
+
             if (_player == PlayerEnum.Player1)
             {
-                _horizontalInput = _player1.Speed * Input.GetAxis("HorizontalPlayer1");
+                if (Input.GetAxis("HorizontalPlayer1") >= .2f)
+                {
+                    _horizontalInput = _player1.Speed;
+                }
+                else if (Input.GetAxis("HorizontalPlayer1") <= -.2f)
+                {
+                    _horizontalInput = -_player1.Speed;
+
+                }
+                else
+                {
+                    _horizontalInput = 0f;
+                }
                 _verticalInput = _player1.Speed * Input.GetAxis("VerticalPlayer1");
             }
             else
             {
-                _horizontalInput = _player2.Speed * Input.GetAxis("HorizontalPlayer2");
+                if (Input.GetAxis("HorizontalPlayer2") >= .2f)
+                {
+                    _horizontalInput = _player2.Speed;
+                }
+                else if (Input.GetAxis("HorizontalPlayer2") <= -.2f)
+                {
+                    _horizontalInput = -_player2.Speed;
+
+                }
+                else
+                {
+                    _horizontalInput = 0f;
+                }
+
                 _verticalInput = _player2.Speed * Input.GetAxis("VerticalPlayer2");
-
-
             }
-            _rb.velocity = new Vector2(_horizontalInput, _verticalInput);
+
+
+            //animator.SetFloat("Speed", Mathf.Abs(horizontalMove));
+
+            //float verticalMove = joystick.Vertical;
+
+            if (_verticalInput >= .5f)
+            {
+                _jump = true;
+                //Animator.SetBool("IsJumping", true);
+            }
+        }
+
+        public void OnLanding()
+        {
+            //Animator.SetBool("IsJumping", false);
+        }
+
+        void FixedUpdate()
+        {
+            Controller.Move(_horizontalInput * Time.fixedDeltaTime, false, _jump);
+            _jump = false;
         }
     }
 }
