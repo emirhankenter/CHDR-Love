@@ -34,7 +34,7 @@ namespace Game.Scripts.Controllers
 
         public void Fire(Transform myTransform)
         {
-            var _clone = Instantiate(_objectToFire, myTransform.position, myTransform.rotation);
+            var _clone = Instantiate(_objectToFire, myTransform.position, myTransform.rotation.normalized);
             //_clone.transform.rotation.SetLookRotation(Camera.main.transform.position);
             _clone.GetComponent<Rigidbody2D>().velocity = _firePoint.up * GameConfig.Instance.ArrowSpeed;
             Cool();
